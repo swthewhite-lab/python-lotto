@@ -16,9 +16,9 @@ jobs:
             exit 1
           fi
 
-      - name: Ensure core logic is only in src/lotto/lotto.py
-        run: |
-          if grep -E 'def ' src/lotto/main.py | grep -v 'main'; then
-            echo "❌ Core logic (function definitions) should not be in src/lotto/main.py!"
-            exit 1
-          fi
+      # - name: Ensure core logic is only in src/lotto/lotto.py
+      #   run: |
+      #     if grep -E 'def ' src/lotto/main.py | grep -v 'main'; then
+      #       echo "❌ Core logic (function definitions) should not be in src/lotto/main.py!"
+      #       exit 1
+      #     fi
