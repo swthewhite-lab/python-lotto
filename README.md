@@ -42,7 +42,7 @@ platform darwin -- Python 3.9.x, pytest-6.2.5
 rootdir: /path/to/project
 collected 5 items
 
-tests/lotto/test_application.py ....                                   [ 80%]
+tests/lotto/test_main.py ....                                   [ 80%]
 tests/lotto/test_lotto.py ..                                            [100%]
 
 ============================ 100% passing in Xs =============================
@@ -173,7 +173,7 @@ tests/lotto/test_lotto.py ..                                            [100%]
 - 외부 라이브러리를 사용하지 않습니다.
 - [Python 코드 스타일 가이드(Python PEP8)](https://peps.python.org/pep-0008/)을 준수하며 프로그래밍합니다.
 - 프로그램 종료 시 `sys.exit()`를 호출하지 않습니다.
-- 프로그램 구현이 완료되면 `tests/lotto/test_application.py`의 모든 테스트가 성공해야 합니다. **테스트가 실패할 경우 0점 처리**됩니다.
+- 프로그램 구현이 완료되면 `tests/lotto/test_main.py`의 모든 테스트가 성공해야 합니다. **테스트가 실패할 경우 0점 처리**됩니다.
 - 프로그래밍 요구 사항에서 별도로 명시하지 않는 한 파일과 패키지 이름을 수정하거나 이동하지 않습니다.
 - 들여쓰기(인덴트) 깊이를 3을 넘지 않도록 구현합니다. 2까지만 허용합니다.
   - 예를 들어, while문 안에 if문이 있으면 들여쓰기는 2입니다.
@@ -190,6 +190,8 @@ tests/lotto/test_lotto.py ..                                            [100%]
 - Python의 Enum을 적용합니다.
 - 도메인 로직에 단위 테스트를 구현해야 합니다. 단, UI(System.out, input) 로직은 제외합니다.
   - 핵심 로직을 구현하는 코드와 UI를 담당하는 로직을 분리합니다.
+    - src/lotto/lotto.py: 핵심 로직을 구현
+    - src/lotto/main.py: UI(입출력)를 담당하는 로직 구현
   - 단위 테스트 작성이 익숙하지 않다면 `tests/lotto/test_lotto.py`를 참고하여 학습한 후 테스트를 구현합니다.
 
 ---
