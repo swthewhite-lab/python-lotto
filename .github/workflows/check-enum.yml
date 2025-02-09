@@ -1,0 +1,17 @@
+name: Check Python Enum Usage
+
+on: pull_request
+
+jobs:
+  check-enum:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Ensure at least one Enum is used
+        run: |
+          if ! grep -r 'from enum import Enum' src/; then
+            echo "❌ Enum must be used in the code!"
+            exit 1
+          fi
