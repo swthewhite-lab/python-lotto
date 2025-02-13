@@ -1,5 +1,6 @@
 LOTTO_EACH_PRICE = 1000  # 로또 구입 금액 단위 매직넘버상수
 
+
 # data가 정수인지 검증 함수
 def is_number(data):
     try:
@@ -26,8 +27,15 @@ def input_purchase_amount():  # 구입 금액 입력 함수
         return purchase_amount
 
 
+def generate_lotto_quantity(purcahse_amount):
+    lotto_quantity = purcahse_amount // LOTTO_EACH_PRICE
+    print("\n{0}개를 구매했습니다.".format(lotto_quantity))
+    return lotto_quantity
+
+
 def main():
     purchase_amount = input_purchase_amount()  # 구입 금액 입력
+    lotto_quantity = generate_lotto_quantity(purchase_amount)
 
 
 
