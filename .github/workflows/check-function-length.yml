@@ -18,6 +18,9 @@ jobs:
           echo "max-locals=10" >> .pylintrc
           echo "max-args=5" >> .pylintrc
           echo "max-statements=15" >> .pylintrc
+          echo "[MESSAGES CONTROL]" >> .pylintrc
+          echo "disable=all" >> .pylintrc
+          echo "enable=design" >> .pylintrc
 
       - name: Run pylint
         run: pylint --rcfile=.pylintrc src/
