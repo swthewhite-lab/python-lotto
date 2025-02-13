@@ -51,8 +51,20 @@ def lottonumber():
         a=random.randint(1,45)
         lotto.append(a)
     lotto.sort()
-    
+
     return lotto
+
+
+def compare(a,b,c) :
+    count=0
+    for x,y in enumerate(a,b) :
+        if x==y :
+            count+=1
+        
+    if c in a :
+        count+=1
+
+    return count
 
 
 def main():
@@ -64,6 +76,8 @@ def main():
         print(a)
 
         count+=1
+
+    
     pass
 
 if __name__ == "__main__":
