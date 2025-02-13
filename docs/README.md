@@ -47,7 +47,11 @@
 2. validate_input_prchase_amount()
 > 구매 금액 입력에 대한 검증 함수
 3. input_purchase_amount()
-> 구매 금액을 입력받는 함수수
+> 구매 금액을 입력받는 함수
+4. generate_lotto_quantity()
+> 구매 가능한 로또 개수 계산 함수
+5. issuance_lotto()
+> 로또 발행 함수
 
 ## 오류 수정
 

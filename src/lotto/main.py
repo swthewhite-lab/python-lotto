@@ -29,7 +29,7 @@ def input_purchase_amount():  # 구입 금액 입력 함수
     return purchase_amount
 
 
-# 구매 가능한 로또 개수 계산산
+# 구매 가능한 로또 개수 계산
 def generate_lotto_quantity(purcahse_amount):
     lotto_quantity = purcahse_amount // LOTTO_EACH_PRICE
     print("\n{0}개를 구매했습니다.".format(lotto_quantity))
