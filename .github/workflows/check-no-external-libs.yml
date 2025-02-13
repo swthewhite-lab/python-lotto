@@ -20,7 +20,9 @@ jobs:
           import os
           import ast
 
-          allowed_modules = {'sys', 'os', 'math', 'random', 'datetime', 're', 'enum'}
+
+          allowed_modules = {'sys', 'os', 'math', 'random', 'datetime', 're' 'enum'}
+          3b3027c ([#0] add enum to `check-no-external-libs.yml`)
 
           def check_imports(file_path):
               with open(file_path, 'r', encoding='utf-8') as f:
