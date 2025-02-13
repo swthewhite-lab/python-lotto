@@ -21,12 +21,15 @@ def input_price():
             return validate_price(price)
         except ValueError as e:
             print(f"[ERROR] {e}") 
+            raise
 
 def validate_price(price):
     if not price.isdigit():
         raise ValueError("[ERROR] 숫자를 입력해 주세요.\n")
-    if int(price) % 1000 != 0 :
+    if int(price) % 1000 != 0:
         raise ValueError("구입 금액은 1,000원으로 나누어 떨어져야 합니다.\n")
+    if int(price) < 1000:
+        raise ValueError("구입 금액은 1,000원 이상이어야 합니다.\n")
     
     return int(price) // 1000
 
