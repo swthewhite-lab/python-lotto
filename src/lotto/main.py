@@ -44,7 +44,17 @@ def bonusnumber_Input():
     return bonusnumber
 
 
+def lottonumber():
+    lotto=[]
+    while len(lotto)<=6:
+        a=random.randint(1,45)
+        lotto.append(a)
+
+    return lotto
+
+
 def main():
-    
+    pass
+
 if __name__ == "__main__":
     main()
