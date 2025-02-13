@@ -1,0 +1,1 @@
+from .lotto import Lotto
