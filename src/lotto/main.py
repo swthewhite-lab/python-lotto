@@ -47,10 +47,11 @@ def bonusnumber_Input():
 
 
 def lottonumber():
-    lotto=[]
+    lotto=set()
     while len(lotto)<=5:
         a=random.randint(1,45)
-        lotto.append(a)
+        lotto.add(a)
+    lotto=list(lotto)
     lotto.sort()
 
     return lotto
@@ -69,14 +70,15 @@ def compare(a,b,c) :
 
 
 def price(x):
-    y=x%10
-    if x==3 :
+    if x==30 :
         return "5000"
-    elif x==4 :
+    elif x==40 :
         return "50000"
-    elif x==5 and y==1 :
+    elif x==50 :
+        return "1,000,000"
+    elif x==51 :
         return "1,500,000"
-    elif x==6 :
+    elif x==60 :
         return "2,000,000,000"
 
 def main():
@@ -93,18 +95,28 @@ def main():
     bonusnumber=bonusnumber_Input()
     
 
-    wincount=[]
+    wincount={"30": 0,"40": 0,"50": 0,"51": 0,"60": 0}
     for i in range(lottocount):
         win=compare(lottonumbers[i],winnumber,bonusnumber)
-        wincount.append(win)
-    
+        print(win)
+        if win == 30:
+            wincount["30"]+=1
+        if win == 40:
+            wincount["40"]+=1
+        if win == 50:
+            wincount["50"]+=1
+        if win == 51:
+            wincount["51"]+=1
+        if win == 60:
+            wincount["60"]+=1
+
     print("당첨 통계")
     print("---")
     print(wincount)
-    '''
-    for i in range(len(lottocount)):
-        print("%d개 일치 %d")
-    '''
+    
+   
+        
+
 
 if __name__ == "__main__":
     main()
