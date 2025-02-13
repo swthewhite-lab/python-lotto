@@ -31,6 +31,7 @@ def purchase_price_Input () :
 def winnernumber_Input () :
     winnernumber=input("당첨 번호를 입력해 주세요.").split(',')
     winnernumber=Exception_handling(winnernumber)
+    winnernumber.sort()
 
     return winnernumber
 
@@ -60,12 +61,23 @@ def compare(a,b,c) :
     for x,y in enumerate(zip(a,b)) :
         if x==y :
             count+=1
-        
+    count=count*10
     if c in a :
         count+=1
 
     return count
 
+
+def price(x):
+    y=x%10
+    if x==3 :
+        return "5000"
+    elif x==4 :
+        return "50000"
+    elif x==5 and y==1 :
+        return "1,500,000"
+    elif x==6 :
+        return "2,000,000,000"
 
 def main():
     lottocount=purchase_price_Input()
@@ -86,9 +98,13 @@ def main():
         win=compare(lottonumbers[i],winnumber,bonusnumber)
         wincount.append(win)
     
-    
+    print("당첨 통계")
+    print("---")
     print(wincount)
-
+    '''
+    for i in range(len(lottocount)):
+        print("%d개 일치 %d")
+    '''
 
 if __name__ == "__main__":
     main()
