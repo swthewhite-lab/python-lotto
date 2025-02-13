@@ -130,13 +130,11 @@ def print_result(result, total_prize, count):
     for rank in Rank:
         if rank == Rank.SECOND:
             print(f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - "
-                  f"{result[rank]}개"
-                 )
+                  f"{result[rank]}개")
 
         if rank != Rank.NONE and rank != Rank.SECOND:
             print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - "
-                  f"{result[rank]}개"
-                 )
+                  f"{result[rank]}개")
 
     print(f"총 수익률은 {profit_rate}%입니다.")
 
