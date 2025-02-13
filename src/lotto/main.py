@@ -4,6 +4,7 @@ from lotto import Lotto, Rank
 이 모듈은 로또 번호 생성, 당첨 확인, 결과 출력 등의 기능을 포함한다.
 """
 
+
 def main():
     """
     로또 프로그램 메인 함수
@@ -93,7 +94,7 @@ def validate_bonus(bonus_num, user_num):
         raise ValueError("숫자를 입력해 주세요.")
     if int(bonus_num) in user_num:
         raise ValueError("보너스 숫자와 입력한 당첨 번호는 중복되지 않아야 합니다.")
-    if int(bonus_num) > 46 or int(bonus_num) < 1:
+    if int(bonus_num) > 45 or int(bonus_num) < 1:
         raise ValueError("로또 번호의 숫자 범위는 1~45까지입니다.")
 
     return int(bonus_num)
@@ -119,7 +120,7 @@ def compare_lotto(lotto_list, user_num, bonus_num):
 
 
 def print_result(result, total_prize, count):
-    """ "
+    """
     당첨 결과 출력
     """
     profit_rate = round((total_prize / (count * 1000)) * 100, 2)
@@ -128,14 +129,14 @@ def print_result(result, total_prize, count):
     print("---")
     for rank in Rank:
         if rank == Rank.SECOND:
-            print(
-                f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - {result[rank]}개"
-            )
+            print(f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - "
+                  f"{result[rank]}개"
+                 )
 
         if rank != Rank.NONE and rank != Rank.SECOND:
             print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - "
                   f"{result[rank]}개"
-            )
+                 )
 
     print(f"총 수익률은 {profit_rate}%입니다.")
 
