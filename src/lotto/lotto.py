@@ -209,4 +209,6 @@ class Lotto:
     @staticmethod
     def calculate_profit_ratio(total_prize, total_cost):
         """수익률 계산"""
-        return (total_prize / total_cost) * 100 if total_cost > 0 else 0
+        if total_cost > 0:
+            return (total_prize / total_cost) * 100
+        return 0
