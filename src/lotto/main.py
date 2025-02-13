@@ -23,7 +23,8 @@ def purchase_price_Input () :
 
     if purchase_price %1000 !=0:
         raise ValueError("[ERROR] 1000원 단위로 입력해야 합니다.")
-    
+    purchase_price=purchase_price/1000
+    print("%d개를 구입했습니다." %purchase_price)
     return purchase_price
 
 
@@ -49,11 +50,20 @@ def lottonumber():
     while len(lotto)<=6:
         a=random.randint(1,45)
         lotto.append(a)
-
+    lotto.sort()
+    
     return lotto
 
 
 def main():
+    lottocount=purchase_price_Input()
+    count=1
+
+    while count<=lottocount :
+        a=lottonumber()
+        print(a)
+
+        count+=1
     pass
 
 if __name__ == "__main__":
