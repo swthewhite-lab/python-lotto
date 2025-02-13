@@ -2,7 +2,7 @@ import random
 from lotto import Lotto, Rank
 
 def main():
-    count = check_valid()
+    count = input_price()
     lotto_list = [Lotto.generate_num() for _ in range(count)]
     print_lotto(lotto_list)
 
@@ -13,16 +13,22 @@ def main():
     print_result(result, total_prize, count)
 
 
-def check_valid():
+def input_price():
     while True:
-        print("구입금액을 입력해 주세요.")
-        price = int(input())
         try:
-            if price % 1000 == 0 :
-                return price // 1000
-            raise ValueError
-        except ValueError:
-            print("[ERROR] 구입 금액은 1,000원으로 나누어 떨어져야 합니다.\n")
+            print("구입금액을 입력해 주세요.")
+            price = input()
+            return validate_price(price)
+        except ValueError as e:
+            print(f"[ERROR] {e}") 
+
+def validate_price(price):
+    if not price.isdigit():
+        raise ValueError("[ERROR] 숫자를 입력해 주세요.\n")
+    if int(price) % 1000 != 0 :
+        raise ValueError("구입 금액은 1,000원으로 나누어 떨어져야 합니다.\n")
+    
+    return int(price) // 1000
 
 
 def print_lotto(lotto_list):
@@ -51,14 +57,14 @@ def bonus_input(user_num):
 
 
 def validate_bonus(bonus_num, user_num):
-    if not bonus_num.isdigit:
+    if not bonus_num.isdigit():
             raise ValueError("숫자를 입력해 주세요.")
     if int(bonus_num) in user_num:
         raise ValueError("보너스 숫자와 입력한 당첨 번호는 중복되지 않아야 합니다.")
     if int(bonus_num) > 46 or int(bonus_num) < 1:
         raise ValueError("로또 번호의 숫자 범위는 1~45까지입니다.")
 
-    return bonus_num
+    return int(bonus_num)
 
 
 def compare_lotto(lotto_list, user_num, bonus_num):
@@ -83,8 +89,12 @@ def print_result(result, total_prize, count):
     print("\n당첨 통계")
     print("---")
     for rank in Rank:
-        if rank != Rank.NONE:
+        if rank == Rank.SECOND:
+            print(f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - {result[rank]}개")
+
+        if rank != Rank.NONE and rank != Rank.SECOND:
             print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - {result[rank]}개")
+    
 
     print(f"총 수익률은 {profit_rate}%입니다.")
 

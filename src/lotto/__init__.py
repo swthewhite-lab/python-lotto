@@ -5,3 +5,4 @@
 
 from .lotto import Lotto  # 로또 클래스
 # from .other_module import OtherClass  # 예: 다른 모듈 추가 시
+from .lotto import Rank
