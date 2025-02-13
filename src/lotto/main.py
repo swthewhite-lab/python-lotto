@@ -23,7 +23,7 @@ def purchase_price_Input () :
 
     if purchase_price %1000 !=0:
         raise ValueError("[ERROR] 1000원 단위로 입력해야 합니다.")
-    purchase_price=purchase_price/1000
+    purchase_price=purchase_price//1000
     print("%d개를 구입했습니다." %purchase_price)
     return purchase_price
 
@@ -57,7 +57,7 @@ def lottonumber():
 
 def compare(a,b,c) :
     count=0
-    for x,y in enumerate(a,b) :
+    for x,y in enumerate(zip(a,b)) :
         if x==y :
             count+=1
         
@@ -70,15 +70,25 @@ def compare(a,b,c) :
 def main():
     lottocount=purchase_price_Input()
     count=1
-
+    lottonumbers=[]
     while count<=lottocount :
         a=lottonumber()
         print(a)
-
+        lottonumbers.append(a)
         count+=1
 
+    winnumber=winnernumber_Input()
+    bonusnumber=bonusnumber_Input()
     
-    pass
+
+    wincount=[]
+    for i in range(lottocount):
+        win=compare(lottonumbers[i],winnumber,bonusnumber)
+        wincount.append(win)
+    
+    
+    print(wincount)
+
 
 if __name__ == "__main__":
     main()
