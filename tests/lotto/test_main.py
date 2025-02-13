@@ -2,7 +2,9 @@ import pytest
 from unittest.mock import patch
 from lotto.main import main
 
+
 ERROR_MESSAGE = "[ERROR]"
+
 
 # 기능 테스트
 def test_기능_테스트(capsys):

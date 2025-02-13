@@ -1,15 +1,24 @@
-from typing import List
 import random
+from enum import Enum
+
+
+class Prize(Enum):
+    """당첨 등수를 Enum으로 정의"""
+    THREE_MATCH = 3
+    FOUR_MATCH = 4
+    FIVE_MATCH = 5
+    FIVE_MATCH_BONUS = "5_bonus"
+    SIX_MATCH = 6
 
 
 class Lotto:
     """로또 번호 및 당첨 결과를 처리하는 클래스"""
 
-    def __init__(self, numbers: List[int]):
+    def __init__(self, numbers: list[int]):
         self._validate(numbers)
         self._numbers = numbers
 
-    def _validate(self, numbers: List[int]):
+    def _validate(self, numbers: list[int]):
         """로또 번호 검증: 개수, 중복, 범위"""
         if len(numbers) != 6:
             raise ValueError("로또 번호는 정확히 6개여야 합니다.")
@@ -102,14 +111,20 @@ class Lotto:
     @staticmethod
     def _is_valid_bonus(bonus, numbers):
         """보너스 번호 검증"""
-        if bonus in numbers or not (1 <= bonus <= 45):
+        if bonus in numbers or not 1 <= bonus <= 45:
             return False
         return True
 
     @staticmethod
     def check_results(purchased_lottos, winning_numbers, bonus_number):
         """구입한 로또 번호와 당첨 번호 비교"""
-        results = {3: 0, 4: 0, 5: 0, "5_bonus": 0, 6: 0}
+        results = {
+            Prize.THREE_MATCH: 0,
+            Prize.FOUR_MATCH: 0,
+            Prize.FIVE_MATCH: 0,
+            Prize.FIVE_MATCH_BONUS: 0,
+            Prize.SIX_MATCH: 0,
+        }
 
         for lotto in purchased_lottos:
             matched_count, has_bonus = Lotto._count_matches(
@@ -134,9 +149,15 @@ class Lotto:
     def _determine_prize_key(matched_count, has_bonus):
         """당첨 등수 판별"""
         if matched_count == 5 and has_bonus:
-            return "5_bonus"
-        if matched_count in {3, 4, 5, 6}:
-            return matched_count
+            return Prize.FIVE_MATCH_BONUS
+        if matched_count == 6:
+            return Prize.SIX_MATCH
+        if matched_count == 5:
+            return Prize.FIVE_MATCH
+        if matched_count == 4:
+            return Prize.FOUR_MATCH
+        if matched_count == 3:
+            return Prize.THREE_MATCH
         return None
 
     @staticmethod
@@ -144,19 +165,24 @@ class Lotto:
         """당첨 통계를 출력"""
         print("\n당첨 통계")
         print("---")
-        print(f"3개 일치 (5,000원) - {results[3]}개")
-        print(f"4개 일치 (50,000원) - {results[4]}개")
-        print(f"5개 일치 (1,500,000원) - {results[5]}개")
-        print(f"5개 일치, 보너스 볼 일치 (30,000,000원) - {results['5_bonus']}개")
-        print(f"6개 일치 (2,000,000,000원) - {results[6]}개")
-
-        total_prize = (
-            results[3] * 5000
-            + results[4] * 50000
-            + results[5] * 1500000
-            + results["5_bonus"] * 30000000
-            + results[6] * 2000000000
+        print(
+            f"3개 일치 (5,000원) - {results[Prize.THREE_MATCH]}개\n"
+            f"4개 일치 (50,000원) - {results[Prize.FOUR_MATCH]}개\n"
+            f"5개 일치 (1,500,000원) - {results[Prize.FIVE_MATCH]}개\n"
+            "5개 일치, 보너스 볼 일치 (30,000,000원) - "
+            f"{results[Prize.FIVE_MATCH_BONUS]}개\n"
+            f"6개 일치 (2,000,000,000원) - {results[Prize.SIX_MATCH]}개"
         )
 
-        profit_ratio = (total_prize / total_cost) * 100 if total_cost else 0
+        total_prize = (
+            results[Prize.THREE_MATCH] * 5000
+            + results[Prize.FOUR_MATCH] * 50000
+            + results[Prize.FIVE_MATCH] * 1500000
+            + results[Prize.FIVE_MATCH_BONUS] * 30000000
+            + results[Prize.SIX_MATCH] * 2000000000
+        )
+        profit_ratio = 0
+        if total_cost > 0:
+            profit_ratio = (total_prize / total_cost) * 100
+
         print(f"총 수익률은 {profit_ratio:.1f}%입니다.")
