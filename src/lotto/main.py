@@ -1,5 +1,5 @@
 import random
-from lotto import Lotto
+from lotto import Lotto, Rank
 
 def main():
     count = check_valid()
@@ -8,6 +8,10 @@ def main():
 
     user_num = user_input()
     bonus_num = bonus_input(user_num)
+
+    result, total_prize = compare_lotto(lotto_list, user_num, bonus_num)
+    print_result(result, total_prize, count)
+
 
 def check_valid():
     while True:
@@ -18,7 +22,7 @@ def check_valid():
                 return price // 1000
             raise ValueError
         except ValueError:
-            print("[ERROR] 구입 금액은 1,000원으로 나누어 떨어져야 합니다.")
+            print("[ERROR] 구입 금액은 1,000원으로 나누어 떨어져야 합니다.\n")
 
 
 def print_lotto(lotto_list):
@@ -55,6 +59,35 @@ def validate_bonus(bonus_num, user_num):
         raise ValueError("로또 번호의 숫자 범위는 1~45까지입니다.")
 
     return bonus_num
+
+
+def compare_lotto(lotto_list, user_num, bonus_num):
+    result = {rank: 0 for rank in Rank}
+    total_prize = 0
+
+    for lotto in lotto_list:
+        lotto_num = lotto.get_numbers()
+        match_cnt = len(set(user_num) & set(lotto_num))
+        bonus = bonus_num in lotto_num
+
+        rank = Rank.get_rank(match_cnt, bonus)
+        result[rank] += 1
+        total_prize += rank.prize
+
+    return result, total_prize
+
+
+def print_result(result, total_prize, count):
+    profit_rate = round((total_prize / (count*1000)) * 100, 2)
+    
+    print("\n당첨 통계")
+    print("---")
+    for rank in Rank:
+        if rank != Rank.NONE:
+            print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - {result[rank]}개")
+
+    print(f"총 수익률은 {profit_rate}%입니다.")
+
 
 if __name__ == "__main__":
     main()

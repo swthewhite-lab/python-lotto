@@ -27,11 +27,11 @@ class Lotto:
     
 
 class Rank(Enum):
-    FIRST = (6, False, 2_000_000_000)
-    SECOND = (5, True, 30_000_000)
-    THIRD = (5, False, 1_500_000)
-    FOURTH = (4, False, 50_000)
     FIFTH = (3, False, 5_000)
+    FOURTH = (4, False, 50_000)
+    THIRD = (5, False, 1_500_000)
+    SECOND = (5, True, 30_000_000)
+    FIRST = (6, False, 2_000_000_000)
     NONE = (0, False, 0)
 
     def __init__(self, match_cnt, bonus_match, prize):
