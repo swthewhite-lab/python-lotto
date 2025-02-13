@@ -1,6 +1,11 @@
 from typing import List
 import random
 
+
+LOTTO_SIZE = 6  # 로또 길이 매직넘버상수
+LOTTO_NUMBER_RANGE = range(1, 46)  # 로또 숫자 범위 매직넘버상수
+
+
 class Lotto:
     def __init__(self, numbers: List[int] = None):
         if numbers is None:  # numbers가 주어지지 않으면 자동으로 생성성
@@ -16,7 +21,7 @@ class Lotto:
     @staticmethod
     def issuance_lotto():
         """랜덤한 6자리 로또 번호 생성 후 정렬하여 반환"""
-        value = sorted(random.sample(range(1, 46), 6))
+        value = sorted(random.sample(LOTTO_NUMBER_RANGE, LOTTO_SIZE))
         return value
     
 
