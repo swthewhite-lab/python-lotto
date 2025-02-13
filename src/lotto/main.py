@@ -1,6 +1,8 @@
-import random
 from lotto import Lotto, Rank
-
+"""
+로또 프로그램 모듈.
+이 모듈은 로또 번호 생성, 당첨 확인, 결과 출력 등의 기능을 포함한다.
+"""
 
 def main():
     """
@@ -131,7 +133,9 @@ def print_result(result, total_prize, count):
             )
 
         if rank != Rank.NONE and rank != Rank.SECOND:
-            print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - {result[rank]}개")
+            print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - "
+                  f"{result[rank]}개"
+            )
 
     print(f"총 수익률은 {profit_rate}%입니다.")
 

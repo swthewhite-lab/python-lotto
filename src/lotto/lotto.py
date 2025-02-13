@@ -1,4 +1,3 @@
-from typing import List
 from enum import Enum
 import random
 
@@ -8,14 +7,14 @@ class Lotto:
     로또 번호 생성 및 유효성 검증하는 클래스
     """
 
-    def __init__(self, numbers: List[int]):
+    def __init__(self, numbers: list[int]):
         """
         로또 객체 초기화
         """
         self._validate(numbers)
         self._numbers = sorted(numbers)
 
-    def _validate(self, numbers: List[int]):
+    def _validate(self, numbers: list[int]):
         """
         로또 번호 유효성 검사
         (로또 번호 6개, 중복 불가, 1~45의 범위)
