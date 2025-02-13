@@ -48,7 +48,7 @@ def bonusnumber_Input():
 
 def lottonumber():
     lotto=set()
-    while len(lotto)<=5:
+    while len(lotto)<6:
         a=random.randint(1,45)
         lotto.add(a)
     lotto=list(lotto)
@@ -71,15 +71,15 @@ def compare(a,b,c) :
 
 def price(x):
     if x==30 :
-        return "5000"
+        return 5000
     elif x==40 :
-        return "50000"
+        return 50000
     elif x==50 :
-        return "1,000,000"
+        return 1500000
     elif x==51 :
-        return "1,500,000"
+        return 30000000
     elif x==60 :
-        return "2,000,000,000"
+        return 2000000000
 
 def main():
     lottocount=purchase_price_Input()
@@ -94,7 +94,7 @@ def main():
     winnumber=winnernumber_Input()
     bonusnumber=bonusnumber_Input()
     
-
+    totalprice=0
     wincount={"30": 0,"40": 0,"50": 0,"51": 0,"60": 0}
     for i in range(lottocount):
         win=compare(lottonumbers[i],winnumber,bonusnumber)
@@ -109,11 +109,18 @@ def main():
             wincount["51"]+=1
         if win == 60:
             wincount["60"]+=1
+        totalprice+=price(win)
 
+    totalpricerate=round((lottocount*1000)/totalprice,2)*100
     print("당첨 통계")
     print("---")
-    print(wincount)
-    
+    print("3개 일치 (5,000원) - %d개"%wincount["30"])
+    print("4개 일치 (50,000원) - %d개"%wincount["40"])
+    print("5개 일치 (1,500,000원) - %d개"%wincount["50"])
+    print("5개 일치, 보너스 볼 일치 (30,000,000원) - %d개"%wincount["51"])
+    print("6개 일치 (2,000,000,000원) - %d개"%wincount["60"])
+   
+    print("총 수익률은 %d%입니다"%totalpricerate)
    
         
 
