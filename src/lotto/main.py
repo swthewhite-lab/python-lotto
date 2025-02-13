@@ -1,6 +1,19 @@
 import random
 
 
+def Exception_handling(x):
+    if len(x) != 6:
+        raise ValueError("[ERROR] 당첨 번호는 6개여야 합니다.")
+    x=[int(i) for i in x]
+
+    if any(n < 1 or n > 45 for n in x):
+        raise ValueError("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.")
+    if len(set(x)) != 6:
+        raise ValueError("[ERROR] 중복되지 않은 6개의 숫자를 입력해야 합니다.")
+
+    return x 
+
+
 def purchase_price_Input () :
     purchase_price=input("구입금액을 입력해 주세요.")
     if not purchase_price.isdigit():
@@ -16,8 +29,8 @@ def purchase_price_Input () :
 
 def winnernumber_Input () :
     winnernumber=input("당첨 번호를 입력해 주세요.").split(',')
-    winnernumber=[int(i) for i in winnernumber]
-    
+    winnernumber=Exception_handling(winnernumber)
+
     return winnernumber
 
 
@@ -32,7 +45,6 @@ def bonusnumber_Input():
 
 
 def main():
-    purchase_price_Input()
     
 if __name__ == "__main__":
     main()
