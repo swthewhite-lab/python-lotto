@@ -1,20 +1,17 @@
-from lotto import Lotto
+from lotto.lotto import Lotto
 
 def main():
-    # 1. 로또 구입 금액을 입력하여 구입할 로또 개수 계산
-    try:
-        lotto_count = Lotto.get_lotto_count()  # 로또 구입 금액 입력
-    except ValueError as e:
-        print("[ERROR] 구입 금액이 잘못되었습니다.")
-        return
+    
+    lotto_count = Lotto.get_lotto_count()  # 로또 구입 금액 입력
+    
     
     # 2. 로또 번호 생성 (구입한 개수만큼 로또 번호 생성)
     purchased_lottos = Lotto.generate_lottos(lotto_count)
 
-    # 📌 로또 번호 출력
+    #  로또 번호 출력
     print(f"\n{lotto_count}개를 구매했습니다.")
     for lotto in purchased_lottos:
-        print(f"{lotto._numbers}")  # ✅ 리스트 형태를 그대로 출력
+        print(f"{lotto._numbers}")  #  리스트 형태를 그대로 출력
 
     # 3. 당첨 번호와 보너스 번호 입력
     try:
