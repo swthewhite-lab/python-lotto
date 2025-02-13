@@ -1,3 +1,5 @@
+"""lotto.py: 로또 번호 생성 및 당첨 결과를 처리하는 모듈"""
+
 import random
 from enum import Enum
 
@@ -17,6 +19,11 @@ class Lotto:
     def __init__(self, numbers: list[int]):
         self._validate(numbers)
         self._numbers = numbers
+
+    @property
+    def numbers(self):
+        """로또 번호를 반환하는 getter 메서드"""
+        return self._numbers
 
     def _validate(self, numbers: list[int]):
         """로또 번호 검증: 개수, 중복, 범위"""
@@ -128,15 +135,19 @@ class Lotto:
 
         for lotto in purchased_lottos:
             matched_count, has_bonus = Lotto._count_matches(
-                lotto._numbers,
-                winning_numbers,
-                bonus_number
+                lotto.numbers, winning_numbers, bonus_number
             )
-            key = Lotto._determine_prize_key(matched_count, has_bonus)
-            if key:
-                results[key] += 1
+
+            Lotto._update_results(results, matched_count, has_bonus)
 
         return results
+
+    @staticmethod
+    def _update_results(results, matched_count, has_bonus):
+        """당첨 결과 딕셔너리를 업데이트"""
+        key = Lotto._determine_prize_key(matched_count, has_bonus)
+        if key:
+            results[key] += 1
 
     @staticmethod
     def _count_matches(lotto_numbers, winning_numbers, bonus_number):
@@ -162,9 +173,19 @@ class Lotto:
 
     @staticmethod
     def print_results(results, total_cost):
-        """당첨 통계를 출력"""
+        """당첨 통계를 출력하고 수익률을 계산하여 표시"""
         print("\n당첨 통계")
         print("---")
+        Lotto.print_winning_statistics(results)
+
+        total_prize = Lotto.calculate_total_prize(results)
+        profit_ratio = Lotto.calculate_profit_ratio(total_prize, total_cost)
+
+        print(f"총 수익률은 {profit_ratio:.1f}%입니다.")
+
+    @staticmethod
+    def print_winning_statistics(results):
+        """당첨 개수를 출력"""
         print(
             f"3개 일치 (5,000원) - {results[Prize.THREE_MATCH]}개\n"
             f"4개 일치 (50,000원) - {results[Prize.FOUR_MATCH]}개\n"
@@ -174,15 +195,18 @@ class Lotto:
             f"6개 일치 (2,000,000,000원) - {results[Prize.SIX_MATCH]}개"
         )
 
-        total_prize = (
+    @staticmethod
+    def calculate_total_prize(results):
+        """총 당첨 금액 계산"""
+        return (
             results[Prize.THREE_MATCH] * 5000
             + results[Prize.FOUR_MATCH] * 50000
             + results[Prize.FIVE_MATCH] * 1500000
             + results[Prize.FIVE_MATCH_BONUS] * 30000000
             + results[Prize.SIX_MATCH] * 2000000000
         )
-        profit_ratio = 0
-        if total_cost > 0:
-            profit_ratio = (total_prize / total_cost) * 100
 
-        print(f"총 수익률은 {profit_ratio:.1f}%입니다.")
+    @staticmethod
+    def calculate_profit_ratio(total_prize, total_cost):
+        """수익률 계산"""
+        return (total_prize / total_cost) * 100 if total_cost > 0 else 0
