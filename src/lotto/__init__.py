@@ -12,7 +12,6 @@ from .lotto import Rank
 
 # 패키지 외부에서 `from lotto import *` 사용 시 제공할 모듈을 명시적으로 정의합니다.
 __all__ = ["Lotto"]
-__all__.append("Rank")
 
 # 💡 예시: 새로운 모듈을 추가할 때
 # from .other_module import OtherClass  # 🆕 예: 새로운 클래스 추가 시
