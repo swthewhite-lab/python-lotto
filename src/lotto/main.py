@@ -1,4 +1,4 @@
-from lotto import Lotto, Rank
+from .lotto import Rank,Lotto
 """
 로또 프로그램 모듈.
 이 모듈은 로또 번호 생성, 당첨 확인, 결과 출력 등의 기능을 포함한다.

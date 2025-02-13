@@ -8,7 +8,6 @@
 # - `flake8`의 F401 경고(`imported but unused`)가 발생하는 경우, `__all__`을 활용해 해결하세요.
 
 from .lotto import Lotto  # 🎲 로또 번호 생성 및 검증을 위한 클래스
-from .lotto import Rank
 
 # 패키지 외부에서 `from lotto import *` 사용 시 제공할 모듈을 명시적으로 정의합니다.
 __all__ = ["Lotto"]
