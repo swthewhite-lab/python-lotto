@@ -22,16 +22,22 @@ jobs:
 
           allowed_modules = {'sys', 'os', 'math', 'random', 'datetime', 're', 'enum'}
 
+          def is_internal_module(module_name):
+              \"\"\" 내부 모듈(`src/` 폴더 내 Python 파일)인지 확인 \"\"\"
+              module_path = os.path.join('src', module_name.replace('.', '/') + '.py')
+              module_dir = os.path.join('src', module_name.replace('.', '/'))
+              return os.path.exists(module_path) or os.path.isdir(module_dir)
+
           def check_imports(file_path):
               with open(file_path, 'r', encoding='utf-8') as f:
                   tree = ast.parse(f.read(), filename=file_path)
                   for node in ast.walk(tree):
                       if isinstance(node, ast.Import):
                           for alias in node.names:
-                              if alias.name not in allowed_modules:
+                              if alias.name not in allowed_modules and not is_internal_module(alias.name):
                                   raise SystemExit(f'❌ External library detected: {alias.name} in {file_path}')
                       elif isinstance(node, ast.ImportFrom):
-                          if node.module and node.module not in allowed_modules:
+                          if node.module and node.module not in allowed_modules and not is_internal_module(node.module):
                               raise SystemExit(f'❌ External library detected: {node.module} in {file_path}')
 
           for root, _, files in os.walk('src'):
