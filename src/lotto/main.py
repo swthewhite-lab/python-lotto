@@ -1,6 +1,7 @@
 import random
 from lotto import Lotto, Rank
 
+
 def main():
     count = input_price()
     lotto_list = [Lotto.generate_num() for _ in range(count)]
@@ -20,8 +21,9 @@ def input_price():
             price = input()
             return validate_price(price)
         except ValueError as e:
-            print(f"[ERROR] {e}") 
+            print(f"[ERROR] {e}")
             raise
+
 
 def validate_price(price):
     if not price.isdigit():
@@ -30,7 +32,7 @@ def validate_price(price):
         raise ValueError("구입 금액은 1,000원으로 나누어 떨어져야 합니다.\n")
     if int(price) < 1000:
         raise ValueError("구입 금액은 1,000원 이상이어야 합니다.\n")
-    
+
     return int(price) // 1000
 
 
@@ -44,7 +46,7 @@ def user_input():
     while True:
         print("\n당첨 번호를 입력해 주세요.")
         try:
-            user_num = list(map(int, input().split(',')))
+            user_num = list(map(int, input().split(",")))
             return Lotto(user_num).get_numbers()
         except ValueError as e:
             print(f"[ERROR] {e}")
@@ -52,16 +54,16 @@ def user_input():
 
 def bonus_input(user_num):
     while True:
-        try: 
+        try:
             bonus_num = input("\n보너스 번호를 입력해 주세요.\n")
             return validate_bonus(bonus_num, user_num)
         except ValueError as e:
-            print(f"[ERROR] {e}") 
+            print(f"[ERROR] {e}")
 
 
 def validate_bonus(bonus_num, user_num):
     if not bonus_num.isdigit():
-            raise ValueError("숫자를 입력해 주세요.")
+        raise ValueError("숫자를 입력해 주세요.")
     if int(bonus_num) in user_num:
         raise ValueError("보너스 숫자와 입력한 당첨 번호는 중복되지 않아야 합니다.")
     if int(bonus_num) > 46 or int(bonus_num) < 1:
@@ -87,17 +89,18 @@ def compare_lotto(lotto_list, user_num, bonus_num):
 
 
 def print_result(result, total_prize, count):
-    profit_rate = round((total_prize / (count*1000)) * 100, 2)
-    
+    profit_rate = round((total_prize / (count * 1000)) * 100, 2)
+
     print("\n당첨 통계")
     print("---")
     for rank in Rank:
         if rank == Rank.SECOND:
-            print(f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - {result[rank]}개")
+            print(
+                f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - {result[rank]}개"
+            )
 
         if rank != Rank.NONE and rank != Rank.SECOND:
             print(f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - {result[rank]}개")
-    
 
     print(f"총 수익률은 {profit_rate}%입니다.")
 

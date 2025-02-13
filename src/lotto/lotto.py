@@ -2,6 +2,7 @@ from typing import List
 from enum import Enum
 import random
 
+
 class Lotto:
     def __init__(self, numbers: List[int]):
         self._validate(numbers)
@@ -17,14 +18,14 @@ class Lotto:
 
     @classmethod
     def generate_num(cls):
-        return cls(random.sample(range(1,46),6))
+        return cls(random.sample(range(1, 46), 6))
 
     def get_numbers(self):
         return self._numbers
-    
+
     def __str__(self):
         return str(self._numbers)
-    
+
 
 class Rank(Enum):
     FIFTH = (3, False, 5_000)
