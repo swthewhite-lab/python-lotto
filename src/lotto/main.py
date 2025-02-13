@@ -48,7 +48,7 @@ def bonusnumber_Input():
 
 def lottonumber():
     lotto=[]
-    while len(lotto)<=6:
+    while len(lotto)<=5:
         a=random.randint(1,45)
         lotto.append(a)
     lotto.sort()
@@ -58,8 +58,8 @@ def lottonumber():
 
 def compare(a,b,c) :
     count=0
-    for x,y in enumerate(zip(a,b)) :
-        if x==y :
+    for i,num in enumerate(a) :
+        if num in b :
             count+=1
     count=count*10
     if c in a :
