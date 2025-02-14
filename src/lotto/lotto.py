@@ -12,7 +12,10 @@ class Lotto:
             numbers = self.issuance_lotto()
         self._validate(numbers)
         self._numbers = numbers
-        self.number = int
+        self.bonus_number = int
+        self.numbers_list = List[list]
+        self.result_list = List[int]
+        self.statistics_list = List[list]
 
 
     def _validate(self, numbers: List[int]):
@@ -25,10 +28,10 @@ class Lotto:
 
 
     def validate_bonus_number(self, number: int):
-        self.number = number
-        if self.number in self._numbers:
+        self.bonus_number = number
+        if self.bonus_number in self._numbers:
             raise ValueError("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.")
-        elif self.number not in LOTTO_NUMBER_RANGE:
+        elif self.bonus_number not in LOTTO_NUMBER_RANGE:
             raise ValueError("[ERROR] 보너스 번호는 1 ~ 45 사이여야 합니다.")
 
 
@@ -45,5 +48,32 @@ class Lotto:
     
 
     def get_numbers(self):
-        """로또 번호 리스트 반환환"""
+        """로또 번호 리스트 반환"""
         return self._numbers
+    
+
+    def compare_winning_number(self, numbers: List[int]):
+        """당첨 번호와 발행 번호를 비교"""
+        count = 0
+        for i in numbers:
+            if i in self._numbers:
+                count += 1
+        return count
+    
+
+    def compare_bonus_number(self, numbers: List[int]):
+        """보너스 번호와 발행 번호를 비교"""
+        if self.bonus_number in numbers:
+            return 1
+        return 0
+
+
+    def calculate_result(self, numbers_list: List[list]):
+        """발행한 로또를 순서대로 당첨 번호, 보너스 번호와 비교"""
+        self.numbers_list = numbers_list
+        self.result_list = [0 for _ in range(len(numbers_list))]
+        for i in range(len(self.result_list)):
+            count_winning = self.compare_winning_number(self.numbers_list[i])
+            count_bonus = self.compare_bonus_number(self.numbers_list[i])
+            self.result_list[i] = [count_winning, count_bonus]
+        return self.result_list

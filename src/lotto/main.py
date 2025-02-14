@@ -54,7 +54,7 @@ def input_winning_numbers():
     return lotto
 
 
-# 보너스 번호를 입력받고 검증하는 함수수
+# 보너스 번호를 입력받고 검증하는 함수
 def input_bonus_number(lotto):
     print("\n보너스 번호를 입력해 주세요.")
     bouns_number = input()  # 보너스 번호 입력
@@ -74,8 +74,12 @@ def main():
 
     lotto = input_winning_numbers()  # 당첨 번호 입력
 
-    bonus_number = input_bonus_number(lotto)  # 보너스 번호 입력력
-    print(bonus_number)
+    bonus_number = input_bonus_number(lotto)  # 보너스 번호 입력
+    
+    result_list = lotto.calculate_result(issued_lotto_list)
+    
+    print(result_list)
+
 
 
 if __name__ == "__main__":
