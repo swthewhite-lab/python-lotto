@@ -15,8 +15,13 @@ class Lotto:
 
 
     def _validate(self, numbers: List[int]):
-        if len(numbers) != 6:
-            raise ValueError()
+        if len(numbers) != LOTTO_SIZE:
+            raise ValueError("[ERROR] 당첨 번호는 6자리입니다.")
+        elif not all(num in LOTTO_NUMBER_RANGE for num in numbers):
+            raise ValueError("[ERROR] 당첨 번호는 1 ~ 45 사이여야 합니다.")
+        elif not all(numbers.count(num) == 1 for num in numbers):
+            raise ValueError("[ERROR] 당첨 번호는 중복될 수 없습니다.")
+
 
     @staticmethod
     def issuance_lotto():

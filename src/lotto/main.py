@@ -36,6 +36,21 @@ def generate_lotto_quantity(purcahse_amount):
     return lotto_quantity
 
 
+def convert_to_list(data):
+    try:
+        data = list(map(int, data.replace(" ","").split(",")))
+        return data
+    except ValueError as e:
+        raise ValueError("[ERROR] 당첨 번호는 정수로 이루어져 있어야 합니다.")
+
+
+def input_winning_numbers():
+    print("\n당첨 번호를 입력해 주세요.")
+    winning_numbers = input()
+    winning_numbers = convert_to_list(winning_numbers)
+    winning_numbers = Lotto(winning_numbers)
+    return winning_numbers
+
 
 
 def main():
@@ -45,6 +60,8 @@ def main():
     issued_lotto_list = [Lotto.issuance_lotto() for _ in range(lotto_quantity)]  # 로또 발행
     for lotto in issued_lotto_list:  # 발행된 로또 출력
         print(lotto)
+    winning_numbers = input_winning_numbers()
+    print(winning_numbers)
 
 
 if __name__ == "__main__":
