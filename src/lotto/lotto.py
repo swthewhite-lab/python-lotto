@@ -8,10 +8,11 @@ LOTTO_NUMBER_RANGE = range(1, 46)  # 로또 숫자 범위 매직넘버상수
 
 class Lotto:
     def __init__(self, numbers: List[int] = None):
-        if numbers is None:  # numbers가 주어지지 않으면 자동으로 생성성
+        if numbers is None:  # numbers가 주어지지 않으면 자동으로 생성
             numbers = self.issuance_lotto()
         self._validate(numbers)
         self._numbers = numbers
+        self.number = int
 
 
     def _validate(self, numbers: List[int]):
@@ -21,6 +22,14 @@ class Lotto:
             raise ValueError("[ERROR] 당첨 번호는 1 ~ 45 사이여야 합니다.")
         elif not all(numbers.count(num) == 1 for num in numbers):
             raise ValueError("[ERROR] 당첨 번호는 중복될 수 없습니다.")
+
+
+    def validate_bonus_number(self, number: int):
+        self.number = number
+        if self.number in self._numbers:
+            raise ValueError("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.")
+        elif self.number not in LOTTO_NUMBER_RANGE:
+            raise ValueError("[ERROR] 보너스 번호는 1 ~ 45 사이여야 합니다.")
 
 
     @staticmethod

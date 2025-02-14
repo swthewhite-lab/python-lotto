@@ -50,9 +50,18 @@ def input_winning_numbers():
     print("\n당첨 번호를 입력해 주세요.")
     winning_numbers = input()  # 당첨 번호 입력
     winning_numbers = convert_to_list(winning_numbers)  # 당첨 번호 list형으로 변경
-    winning_numbers = Lotto(winning_numbers)  # 당첨 번호 검증
-    return winning_numbers
+    lotto = Lotto(winning_numbers)  # 당첨 번호 검증
+    return lotto
 
+
+# 보너스 번호를 입력받고 검증하는 함수수
+def input_bonus_number(lotto):
+    print("\n보너스 번호를 입력해 주세요.")
+    bouns_number = input()  # 보너스 번호 입력
+    bouns_number = is_number(bouns_number)  # 보너스 번호를 int형으로 변환
+    lotto.validate_bonus_number(bouns_number)  # 보너스 번호 검증증
+    return bouns_number
+    
 
 
 def main():
@@ -62,8 +71,11 @@ def main():
     issued_lotto_list = [Lotto.issuance_lotto() for _ in range(lotto_quantity)]  # 로또 발행
     for lotto in issued_lotto_list:  # 발행된 로또 출력
         print(lotto)
-    winning_numbers = input_winning_numbers()  # 당첨 번호 입력
-    print(winning_numbers)
+
+    lotto = input_winning_numbers()  # 당첨 번호 입력
+
+    bonus_number = input_bonus_number(lotto)  # 보너스 번호 입력력
+    print(bonus_number)
 
 
 if __name__ == "__main__":
