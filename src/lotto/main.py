@@ -92,7 +92,6 @@ def print_result(result_list, purchase_amount):
     # 총 당첨 금액 계산
     total_prize = sum(score.prize * cnt for score, cnt in score_count.items())
 
-
     # 수익률 계산 및 출력
     revenue_rate = (total_prize / purchase_amount) * 100
     print(f"총 수익률은 {revenue_rate:.1f}%입니다.")
