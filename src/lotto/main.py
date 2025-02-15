@@ -86,7 +86,7 @@ def print_result(result_list, purchase_amount):
         score = Score.get_score(match_count, bonus_match)
         if score != Score.NONE:
             score_count[score] += 1
-            
+
     just_print(Score, score_count)
 
     # 총 당첨 금액 계산
