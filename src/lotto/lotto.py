@@ -18,7 +18,6 @@ class Lotto:
         self.result_list = List[int]
         self.statistics_list = List[list]
 
-
     def _validate(self, numbers: List[int]):
         if len(numbers) != LOTTO_SIZE:
             raise ValueError("[ERROR] 당첨 번호는 6자리입니다.")
@@ -26,8 +25,7 @@ class Lotto:
             raise ValueError("[ERROR] 당첨 번호는 1 ~ 45 사이여야 합니다.")
         elif not all(numbers.count(num) == 1 for num in numbers):
             raise ValueError("[ERROR] 당첨 번호는 중복될 수 없습니다.")
-
-
+        
     def validate_bonus_number(self, number: int):
         self.bonus_number = number
         if self.bonus_number in self._numbers:
@@ -35,23 +33,19 @@ class Lotto:
         elif self.bonus_number not in LOTTO_NUMBER_RANGE:
             raise ValueError("[ERROR] 보너스 번호는 1 ~ 45 사이여야 합니다.")
 
-
     @staticmethod
     def issuance_lotto():
         """랜덤한 6자리 로또 번호 생성 후 정렬하여 반환"""
         value = sorted(random.sample(LOTTO_NUMBER_RANGE, LOTTO_SIZE))
         return value
 
-
     def __str__(self):
         """str 형식으로 변환하여 반환"""
         return str(self._numbers)
 
-
     def get_numbers(self):
         """로또 번호 리스트 반환"""
         return self._numbers
-
 
     def compare_winning_number(self, numbers: List[int]):
         """당첨 번호와 발행 번호를 비교"""
@@ -61,13 +55,11 @@ class Lotto:
                 count += 1
         return count
 
-
     def compare_bonus_number(self, numbers: List[int]):
         """보너스 번호와 발행 번호를 비교"""
         if self.bonus_number in numbers:
             return 1
         return 0
-
 
     def calculate_result(self, numbers_list: List[list]):
         """발행한 로또를 순서대로 당첨 번호, 보너스 번호와 비교"""
