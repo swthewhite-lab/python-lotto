@@ -1,4 +1,5 @@
 from typing import List
+from enum import Enum
 import random
 
 
@@ -77,3 +78,27 @@ class Lotto:
             count_bonus = self.compare_bonus_number(self.numbers_list[i])
             self.result_list[i] = [count_winning, count_bonus]
         return self.result_list
+
+
+class Score(Enum):
+    FIRST = (6, 0, 2000000000)  # 6개 일치, 보너스 X, 1등
+    SECOND = (5, 1, 30000000)    # 5개 일치, 보너스 O, 2등
+    THIRD = (5, 0, 1500000)      # 5개 일치, 보너스 X, 3등
+    FOURTH = (4, 0, 50000)        # 4개 일치, 보너스 X, 4등
+    FIFTH = (3, 0, 5000)          # 3개 일치, 보너스 X, 5등
+    NONE = (0, 0, 0)               # 당첨되지 않음
+
+    def __init__(self, match_count, bonus_match, prize):
+        self.match_count = match_count  # 맞춘 숫자 개수
+        self.bonus_match = bonus_match  # 보너스 번호 일치 여부
+        self.prize = prize  # 상금
+
+    @classmethod
+    def get_score(cls, match_count, bonus_match):
+        """
+        당첨 번호 개수와 보너스 번호 여부를 받아 해당하는 Score 반환
+        """
+        for score in cls:
+            if score.match_count == match_count and score.bonus_match == bonus_match:
+                return score
+        return cls.NONE  # 당첨되지 않은 경우

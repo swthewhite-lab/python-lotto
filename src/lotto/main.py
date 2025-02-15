@@ -1,4 +1,4 @@
-from lotto import Lotto
+from lotto import Lotto, Score
 
 
 LOTTO_EACH_PRICE = 1000  # 로또 구입 금액 단위 매직넘버상수
@@ -63,6 +63,34 @@ def input_bonus_number(lotto):
     return bouns_number
     
 
+def print_result(result_list, purchase_amount):
+    print("\n당첨 통계\n---")
+    
+    # 등수별 당첨 개수 저장 딕셔너리 초기화
+    score_count = {score: 0 for score in Score if score != Score.NONE}
+
+    # 당첨 개수 세기
+    for match_count, bonus_match in result_list:
+        score = Score.get_score(match_count, bonus_match)
+        if score != Score.NONE:
+            score_count[score] += 1
+
+    # 총 당첨 금액 계산
+    total_prize = sum(score.prize * count for score, count in score_count.items())
+
+    # 결과 출력
+    for score in Score:
+        if score == Score.NONE:
+            continue  # NONE 등급(낙첨)은 출력하지 않음
+        description = f"{score.match_count}개 일치"
+        if score.bonus_match == 1:
+            description += ", 보너스 볼 일치"
+        print(f"{description} ({format(score.prize, ',d')}원) - {score_count[score]}개")
+
+    # 수익률 계산 및 출력
+    revenue_rate = (total_prize / purchase_amount) * 100
+    print(f"총 수익률은 {revenue_rate:.1f}%입니다.")
+
 
 def main():
     purchase_amount = input_purchase_amount()  # 구입 금액 입력
@@ -77,9 +105,8 @@ def main():
     bonus_number = input_bonus_number(lotto)  # 보너스 번호 입력
     
     result_list = lotto.calculate_result(issued_lotto_list)
-    
-    print(result_list)
 
+    print_result(result_list, purchase_amount)
 
 
 if __name__ == "__main__":
