@@ -57,3 +57,5 @@ def test_예외_테스트():
         # 잘못된 금액 입력
         with patch("builtins.input", side_effect=["1000j"]):
             main()
+
+
