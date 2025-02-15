@@ -1,4 +1,4 @@
-from lotto import Lotto, Score
+from lotto.lotto import Lotto, Score
 
 
 LOTTO_EACH_PRICE = 1000  # 로또 구입 금액 단위 매직넘버상수
