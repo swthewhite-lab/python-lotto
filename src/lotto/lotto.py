@@ -25,7 +25,7 @@ class Lotto:
             raise ValueError("[ERROR] 당첨 번호는 1 ~ 45 사이여야 합니다.")
         elif not all(numbers.count(num) == 1 for num in numbers):
             raise ValueError("[ERROR] 당첨 번호는 중복될 수 없습니다.")
-        
+
     def validate_bonus_number(self, number: int):
         self.bonus_number = number
         if self.bonus_number in self._numbers:
@@ -80,17 +80,17 @@ class Score(Enum):
     FIFTH = (3, 0, 5000)          # 3개 일치, 보너스 X, 5등
     NONE = (0, 0, 0)               # 당첨되지 않음
 
-    def __init__(self, match_count, bonus_match, prize):
-        self.match_count = match_count  # 맞춘 숫자 개수
-        self.bonus_match = bonus_match  # 보너스 번호 일치 여부
+    def __init__(self, m_count, b_match, prize):
+        self.m_count = m_count  # 맞춘 숫자 개수
+        self.b_match = b_match  # 보너스 번호 일치 여부
         self.prize = prize  # 상금
 
     @classmethod
-    def get_score(cls, match_count, bonus_match):
+    def get_score(cls, m_count, b_match):
         """
         당첨 번호 개수와 보너스 번호 여부를 받아 해당하는 Score 반환
         """
         for score in cls:
-            if score.match_count == match_count and score.bonus_match == bonus_match:
+            if score.m_count == m_count and score.b_match == b_match:
                 return score
         return cls.NONE  # 당첨되지 않은 경우
