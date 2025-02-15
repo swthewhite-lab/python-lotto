@@ -63,6 +63,18 @@ def input_bonus_number(lotto):
     lotto.validate_bonus_number(bouns_number)  # 보너스 번호 검증증
 
 
+def just_print(Score, score_count):
+    # 결과 출력
+    for score in Score:
+        if score == Score.NONE:
+            continue  # NONE 등급(낙첨)은 출력하지 않음
+        description = f"{score.m_count}개 일치"
+        if score.b_match == 1:
+            description += ", 보너스 볼 일치"
+        print(f"{description} ({format(score.prize, ',d')}원)", end="")
+        print(f" - {score_count[score]}개")
+
+
 def print_result(result_list, purchase_amount):
     print("\n당첨 통계\n---")
 
@@ -74,19 +86,12 @@ def print_result(result_list, purchase_amount):
         score = Score.get_score(match_count, bonus_match)
         if score != Score.NONE:
             score_count[score] += 1
+            
+    just_print(Score, score_count)
 
     # 총 당첨 금액 계산
     total_prize = sum(score.prize * cnt for score, cnt in score_count.items())
 
-    # 결과 출력
-    for score in Score:
-        if score == Score.NONE:
-            continue  # NONE 등급(낙첨)은 출력하지 않음
-        description = f"{score.m_count}개 일치"
-        if score.b_match == 1:
-            description += ", 보너스 볼 일치"
-        print(f"{description} ({format(score.prize, ',d')}원)", end="")
-        print(f" - {score_count[score]}개")
 
     # 수익률 계산 및 출력
     revenue_rate = (total_prize / purchase_amount) * 100
@@ -97,15 +102,15 @@ def main():
     purchase_amount = input_purchase_amount()  # 구입 금액 입력
     l_quantity = generate_lotto_quantity(purchase_amount)  # 로또 수량 계산산
 
-    issued_l_list = [Lotto.issuance_lotto() for _ in range(l_quantity)]  # 로또 발행
-    for lotto in issued_l_list:  # 발행된 로또 출력
+    issu_l_list = [Lotto.issuance_lotto() for _ in range(l_quantity)]  # 로또 발행
+    for lotto in issu_l_list:  # 발행된 로또 출력
         print(lotto)
 
     lotto = input_winning_numbers()  # 당첨 번호 입력
 
     input_bonus_number(lotto)  # 보너스 번호 입력
 
-    result_list = lotto.calculate_result(issued_l_list)
+    result_list = lotto.calculate_result(issu_l_list)
 
     print_result(result_list, purchase_amount)
 
