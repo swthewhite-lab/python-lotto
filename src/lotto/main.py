@@ -61,11 +61,11 @@ def input_bonus_number(lotto):
     bouns_number = is_number(bouns_number)  # 보너스 번호를 int형으로 변환
     lotto.validate_bonus_number(bouns_number)  # 보너스 번호 검증증
     return bouns_number
-    
+
 
 def print_result(result_list, purchase_amount):
     print("\n당첨 통계\n---")
-    
+
     # 등수별 당첨 개수 저장 딕셔너리 초기화
     score_count = {score: 0 for score in Score if score != Score.NONE}
 
@@ -103,7 +103,7 @@ def main():
     lotto = input_winning_numbers()  # 당첨 번호 입력
 
     bonus_number = input_bonus_number(lotto)  # 보너스 번호 입력
-    
+
     result_list = lotto.calculate_result(issued_lotto_list)
 
     print_result(result_list, purchase_amount)

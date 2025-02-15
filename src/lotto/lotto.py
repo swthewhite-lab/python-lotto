@@ -41,17 +41,17 @@ class Lotto:
         """랜덤한 6자리 로또 번호 생성 후 정렬하여 반환"""
         value = sorted(random.sample(LOTTO_NUMBER_RANGE, LOTTO_SIZE))
         return value
-    
+
 
     def __str__(self):
         """str 형식으로 변환하여 반환"""
         return str(self._numbers)
-    
+
 
     def get_numbers(self):
         """로또 번호 리스트 반환"""
         return self._numbers
-    
+
 
     def compare_winning_number(self, numbers: List[int]):
         """당첨 번호와 발행 번호를 비교"""
@@ -60,7 +60,7 @@ class Lotto:
             if i in self._numbers:
                 count += 1
         return count
-    
+
 
     def compare_bonus_number(self, numbers: List[int]):
         """보너스 번호와 발행 번호를 비교"""
