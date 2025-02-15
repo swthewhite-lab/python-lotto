@@ -1,4 +1,3 @@
-from typing import List
 from enum import Enum
 import random
 
@@ -8,17 +7,17 @@ LOTTO_NUMBER_RANGE = range(1, 46)  # 로또 숫자 범위 매직넘버상수
 
 
 class Lotto:
-    def __init__(self, numbers: List[int] = None):
+    def __init__(self, numbers: list[int] = None):
         if numbers is None:  # numbers가 주어지지 않으면 자동으로 생성
             numbers = self.issuance_lotto()
         self._validate(numbers)
         self._numbers = numbers
         self.bonus_number = int
-        self.numbers_list = List[list]
-        self.result_list = List[int]
-        self.statistics_list = List[list]
+        self.numbers_list = list[list]
+        self.result_list = list[int]
+        self.statistics_list = list[list]
 
-    def _validate(self, numbers: List[int]):
+    def _validate(self, numbers: list[int]):
         if len(numbers) != LOTTO_SIZE:
             raise ValueError("[ERROR] 당첨 번호는 6자리입니다.")
         elif not all(num in LOTTO_NUMBER_RANGE for num in numbers):
@@ -47,7 +46,7 @@ class Lotto:
         """로또 번호 리스트 반환"""
         return self._numbers
 
-    def compare_winning_number(self, numbers: List[int]):
+    def compare_winning_number(self, numbers: list[int]):
         """당첨 번호와 발행 번호를 비교"""
         count = 0
         for i in numbers:
@@ -55,13 +54,13 @@ class Lotto:
                 count += 1
         return count
 
-    def compare_bonus_number(self, numbers: List[int]):
+    def compare_bonus_number(self, numbers: list[int]):
         """보너스 번호와 발행 번호를 비교"""
         if self.bonus_number in numbers:
             return 1
         return 0
 
-    def calculate_result(self, numbers_list: List[list]):
+    def calculate_result(self, numbers_list: list[list]):
         """발행한 로또를 순서대로 당첨 번호, 보너스 번호와 비교"""
         self.numbers_list = numbers_list
         self.result_list = [0 for _ in range(len(numbers_list))]
