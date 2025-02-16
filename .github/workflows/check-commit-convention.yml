@@ -28,9 +28,9 @@ jobs:
           invalid_commits=0
           echo "🔍 Checking commit message convention..."
           while IFS= read -r commit_message; do
-            # "Merge"로 시작하는 메시지는 검사에서 제외
-            if [[ "$commit_message" =~ ^Merge ]]; then
-              echo "⚡ Skipping merge commit: $commit_message"
+            # "Merge"로 시작하는 메시지 또는 "[#0]"이 포함된 메시지는 검사에서 제외
+            if [[ "$commit_message" =~ ^Merge || "$commit_message" =~ \[\#0\] ]]; then
+              echo "⚡ Skipping commit: $commit_message"
               continue
             fi
 
