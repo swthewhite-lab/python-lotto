@@ -17,13 +17,10 @@ def check_amount(input_amount):
 
 def prompt_purchase_amount():
     """로또 구입 금액 입력"""
-    while True:
-        try:
-            print("구입금액을 입력해 주세요.")
-            amount = input()
-            return check_amount(amount)
-        except ValueError as error:
-            print(f"[ERROR] {error}")
+    print("구입금액을 입력해 주세요.")
+    amount = input()
+    return check_amount(amount)
+
 
 
 def print_lotto_tickets(tickets):
