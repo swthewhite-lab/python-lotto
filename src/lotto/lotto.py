@@ -35,7 +35,6 @@ class Rank(Enum):
 class Lotto():
     """로또 번호 및 당첨 결과를 처리하는 클래스"""
     ERROR_MESSAGE = "[ERROR] 구입 금액이 잘못되었습니다."
-    
     def __init__(self, numbers: list[int]):
         self._validate(numbers)
         self._numbers = sorted(numbers)
@@ -49,15 +48,15 @@ class Lotto():
         if not all(1 <= num <= 45 for num in numbers):
             raise ValueError("로또 번호는 1부터 45 사이여야 합니다.")
 
- 
     @classmethod
-    def generate_random_lotto(cls):
+    def generate_randomlotto(cls):
         """무작위 로또 번호 생성"""
         return cls(random.sample(range(1, 46), 6))
 
 
     def get_numbers(self):
         return self._numbers
+
 
     def __str__(self):
         """str 형식으로 변환하여 반환"""
