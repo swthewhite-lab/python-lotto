@@ -22,7 +22,6 @@ def prompt_purchase_amount():
     return check_amount(amount)
 
 
-
 def print_lotto_tickets(tickets):
     """구매한 로또 번호 출력"""
     print(f"\n{len(tickets)}개를 구매했습니다.")
