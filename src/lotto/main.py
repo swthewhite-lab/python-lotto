@@ -1,4 +1,4 @@
-from .lotto import Rank, Lotto
+from lotto import Rank, Lotto
 
 
 def check_amount(input_amount):

@@ -1,4 +1,4 @@
-from .lotto import Lotto
+from .lotto import Lotto, Rank
 
 
-__all__ = ["Lotto"]
+__all__ = ["Lotto", "Rank"]
