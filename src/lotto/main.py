@@ -94,12 +94,14 @@ def print_results(results, total_prize, amount):
     for rank in Rank:
         if rank == Rank.SECOND:
             print(
-                f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - {results[rank]}개"
+                f"{rank.match_cnt}개 일치, 보너스 볼 일치 ({rank.prize:,}원) - "
+                f"{results[rank]}개"
             )
 
         if rank != Rank.NONE and rank != Rank.SECOND:
             print(
-                f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - {results[rank]}개"
+                f"{rank.match_cnt}개 일치 ({rank.prize:,}원) - "
+                f"{results[rank]}개"
             )
 
     print(f"총 수익률은 {profit_percentage}%입니다.")
@@ -108,7 +110,7 @@ def print_results(results, total_prize, amount):
 def main():
     """로또 게임 실행"""
     amount = prompt_purchase_amount()
-    tickets = [Lotto.generate_random_lotto() for _ in range(amount)]
+    tickets = [Lotto.generate_randomlotto() for _ in range(amount)]
     print_lotto_tickets(tickets)
 
     winning_numbers = prompt_winning_numbers()
