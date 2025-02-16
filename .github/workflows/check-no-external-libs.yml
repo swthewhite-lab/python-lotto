@@ -21,7 +21,7 @@ jobs:
           import ast
 
 
-          allowed_modules = {'sys', 'os', 'math', 'random', 'datetime', 're' 'enum'}
+          allowed_modules = {'sys', 'os', 'math', 'random', 'datetime', 're', 'enum'}
           def is_internal_module(module_name):
               \"\"\" 내부 모듈(`src/` 폴더 내 Python 파일)인지 확인 \"\"\"
               module_path = os.path.join('src', module_name.replace('.', '/') + '.py')
